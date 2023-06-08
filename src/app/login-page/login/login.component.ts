@@ -4,6 +4,7 @@ import {CookieService} from "ngx-cookie-service";
 import {Router} from "@angular/router";
 import {UserRequest, UserResponse} from "../login-page.component";
 import {LoginPageService} from "../login-page.service";
+import {hashPassword} from "../loginUtils";
 
 @Component({
   selector: 'app-login',
@@ -18,10 +19,12 @@ export class LoginComponent {
   email: string = "";
   password: string = "";
 
-  submit() {
+  async submit() {
+    let passwordHash = await hashPassword(this.password);
+
     this.httpClient.post<UserResponse>("http://localhost:8080/user/login", {
       email: this.email,
-      password: this.password
+      password: passwordHash
     } as UserRequest).subscribe({
       next: res => {
         this.cookieService.set("id", String(res.id));

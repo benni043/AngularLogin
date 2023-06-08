@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {Router} from "@angular/router";
 import {UserRequest, UserResponse} from "../login-page.component";
 import {LoginPageService} from "../login-page.service";
+import {hashPassword} from "../loginUtils";
 
 @Component({
   selector: 'app-register',
@@ -20,11 +21,22 @@ export class RegisterComponent {
   password: string = "";
   password2: string = "";
 
-  submit() {
+  checkPasswordCorrectness(password: string, passwordCheck: string) {
+    return password === passwordCheck;
+  }
+
+  async submit() {
+    if (!this.checkPasswordCorrectness(this.password, this.password2)) {
+      console.error("the passwords must be the same")
+      return;
+    }
+
+    let passwordHash = await hashPassword(this.password);
+
     this.httpClient.post<UserResponse>("http://localhost:8080/user/register", {
       email: this.email,
       userName: this.userName,
-      password: this.password
+      password: passwordHash
     } as UserRequest).subscribe({
       next: res => {
         this.cookieService.set("id", String(res.id));
