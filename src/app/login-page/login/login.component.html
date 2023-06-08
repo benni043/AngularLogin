@@ -1,0 +1,8 @@
+<form (ngSubmit)="submit()">
+  <input type="email" name="email" id="email" placeholder="email" [(ngModel)]="email">
+  <input type="password" name="password" id="password" placeholder="password" [(ngModel)]="password">
+
+  <button type="submit">login</button>
+</form>
+
+<button (click)="toggle()">toggle</button>

@@ -1,0 +1,6 @@
+<div *ngIf="loginPageService.loginActive">
+  <app-login></app-login>
+</div>
+<div *ngIf="!loginPageService.loginActive">
+  <app-register></app-register>
+</div>
