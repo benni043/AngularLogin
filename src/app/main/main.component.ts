@@ -38,6 +38,10 @@ export class MainComponent {
     })
   }
 
+  logout() {
+    this.cookieService.deleteAll("/");
+    this.router.navigate(["/login"]).then();
+  }
 }
 
 export type User = {
