@@ -19,6 +19,7 @@ export class LoginAuthGuard implements CanActivate {
     let isLoggedIn = this.authService.isAuthenticated();
 
     if (isLoggedIn) {
+      console.log("true")
       return true
     } else {
       this.router.navigate(['/login']).then();
