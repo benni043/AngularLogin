@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {LoginPageService} from "../login-page.service";
 import {hashPassword} from "../loginUtils";
 import {UserRequest, UserResponse} from "../../utils/userUtils";
+import {AlertService} from "../../alert/alert.service";
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ import {UserRequest, UserResponse} from "../../utils/userUtils";
 })
 export class LoginComponent {
 
-  constructor(private httpClient: HttpClient, private cookieService: CookieService, private router: Router, private loginPageService: LoginPageService) {
+  constructor(private httpClient: HttpClient, private cookieService: CookieService, private router: Router, private loginPageService: LoginPageService, private alertService: AlertService) {
   }
 
   email: string = "";
@@ -32,7 +33,19 @@ export class LoginComponent {
         this.router.navigate(["/main"]).then();
       },
       error: err => {
-        console.log(err.status)
+        switch (err.status) {
+          case 404: {
+            this.alertService.newError("Benutzer wurde nicht gefunden!");
+            break;
+          }
+          case 401: {
+            this.alertService.newError("Das eingegebene Passwort ist falsch!");
+            break;
+          }
+          default: {
+            this.alertService.newError("Unbekannter Fehler!");
+          }
+        }
       }
     })
   }

@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {LoginPageService} from "../login-page.service";
 import {hashPassword} from "../loginUtils";
 import {UserRequest, UserResponse} from "../../utils/userUtils";
+import {AlertService} from "../../alert/alert.service";
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,7 @@ import {UserRequest, UserResponse} from "../../utils/userUtils";
 })
 export class RegisterComponent {
 
-  constructor(private httpClient: HttpClient, private cookieService: CookieService, private router: Router, private loginPageService: LoginPageService) {
+  constructor(private httpClient: HttpClient, private cookieService: CookieService, private router: Router, private loginPageService: LoginPageService, private alertService: AlertService) {
   }
 
   userName: string = "";
@@ -27,7 +28,7 @@ export class RegisterComponent {
 
   async submit() {
     if (!this.checkPasswordCorrectness(this.password, this.password2)) {
-      console.error("the passwords must be the same")
+      this.alertService.newError("Die Passwörter müssen gleich sein!");
       return;
     }
 
@@ -44,7 +45,15 @@ export class RegisterComponent {
         this.router.navigate(["/main"]).then();
       },
       error: err => {
-        console.log(err)
+        switch (err.status) {
+          case 406: {
+            this.alertService.newError("Diese E-Mail wird bereits verwendet!");
+            break;
+          }
+          default: {
+            this.alertService.newError("Unbekannter Fehler!");
+          }
+        }
       }
     })
   }

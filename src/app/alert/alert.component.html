@@ -1,13 +1,13 @@
-<div class="alert" [ngClass]="{'active': isActive}">
+<div class="alert" [ngClass]="{'active': alertService.isActive}">
   <div class="alert-content">
     <span class="check">X</span>
     <div class="message">
-      <span class="text text-1">{{ headLine }}</span>
-      <span class="text text-2">{{ message }}</span>
+      <span class="text text-1">{{ alertService.headLine }}</span>
+      <span class="text text-2">{{ alertService.message }}</span>
     </div>
   </div>
-  <i class="close" (click)="close()">x</i>
-  <div class="progress" [ngClass]="{'active': isActive}"></div>
+  <i class="close" (click)="alertService.close()">x</i>
+  <div class="progress" [ngClass]="{'active': alertService.isActive}"></div>
 </div>
 
-<button (click)="show()">show</button>
+<button (click)="alertService.show()">show</button>

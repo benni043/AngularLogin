@@ -1,4 +1,5 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
+import {AlertService} from "./alert.service";
 
 @Component({
   selector: 'app-alert',
@@ -7,36 +8,7 @@ import {Component, Input} from '@angular/core';
 })
 export class AlertComponent {
 
-  isActive: boolean = false;
-  headLine: string = "Fehler";
-  @Input() message: string = "";
-  timer1: any;
-  timer2: any;
-
-  show() {
-    this.isActive = true;
-
-    this.timer1 = setTimeout(() => {
-      this.isActive = false;
-    }, 5000);
-
-    this.timer2 = setTimeout(() => {
-      this.progressInactive();
-    }, 5300);
-  }
-
-  close() {
-    this.isActive = false;
-    this.progressInactive();
-
-    clearTimeout(this.timer1);
-    clearTimeout(this.timer2);
-  }
-
-  progressInactive() {
-    setTimeout(() => {
-      this.isActive = false;
-    }, 300);
+  constructor(public alertService: AlertService) {
   }
 
 }
