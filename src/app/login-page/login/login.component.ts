@@ -2,9 +2,9 @@ import {Component} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {Router} from "@angular/router";
-import {UserRequest, UserResponse} from "../login-page.component";
 import {LoginPageService} from "../login-page.service";
 import {hashPassword} from "../loginUtils";
+import {UserRequest, UserResponse} from "../../utils/userUtils";
 
 @Component({
   selector: 'app-login',

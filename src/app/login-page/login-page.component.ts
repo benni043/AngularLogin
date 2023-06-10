@@ -12,14 +12,3 @@ export class LoginPageComponent {
   }
 
 }
-
-export type UserRequest = {
-  email: string,
-  userName: string,
-  password: string
-}
-
-export type UserResponse = {
-  id: number,
-  token: string
-}
