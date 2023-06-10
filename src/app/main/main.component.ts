@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {Router} from "@angular/router";
 import {DisplayUser, User} from "../utils/userUtils";
+import {AlertService} from "../alert/alert.service";
 
 @Component({
   selector: 'app-main',
@@ -10,7 +11,7 @@ import {DisplayUser, User} from "../utils/userUtils";
   styleUrls: ['./main.component.css']
 })
 export class MainComponent {
-  constructor(private httpClient: HttpClient, private cookieService: CookieService, private router: Router) {
+  constructor(private httpClient: HttpClient, private cookieService: CookieService, private router: Router, private alertService: AlertService) {
     this.getAllUsers().then();
   }
 
@@ -25,7 +26,15 @@ export class MainComponent {
         this.userList = res;
       },
       error: err => {
-        console.log(err)
+        switch (err.status) {
+          case 403: {
+            this.alertService.newError("Ungültiger JWT-Token!");
+            break;
+          }
+          default: {
+            this.alertService.newError("Unbekannter Fehler!");
+          }
+        }
       }
     })
   }
