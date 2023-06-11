@@ -1,8 +1,72 @@
-<form #loginForm="ngForm" (ngSubmit)="submit()">
-  <input type="email" name="email" id="email" placeholder="email" [(ngModel)]="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}">
-  <input type="password" name="password" id="password" placeholder="password" [(ngModel)]="password" required minlength="8">
+<div>
+  <div class="outer">
+    <form #loginForm="ngForm" (ngSubmit)="next()" *ngIf="!passwordActive">
+      <h2 class="head">Willkommen</h2>
+      <h3 class="secondHead">Zur Hauptseite weiterleiten</h3>
 
-  <button type="submit" [disabled]="loginForm.invalid">login</button>
-</form>
+      <br>
 
-<button (click)="toggle()">toggle</button>
+      <div class="input-outer">
+        <input class="email" type="email" name="email" id="email" placeholder="" [(ngModel)]="email" required
+             pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}">
+        <label>E-Mail oder Telefonnummer</label>
+      </div>
+
+      <div class="forgotten blue hover bold">E-Mail-Adresse vergessen?</div>
+
+      <br>
+      <br>
+      <br>
+
+      <div>
+        <span>Nicht ihr Computer? Dann können Sie für die Anmeldung ein privates Fenster öffnen.</span>
+        <span class="blue hover more bold">Weitere Informationen</span>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <div class="buttons">
+        <button type="button" class="blue newAccount hover bold" (click)="toggle()">Konto erstellen</button>
+        <button type="submit" class="next hover bold" (click)="next()" [disabled]="loginForm.invalid">Weiter</button>
+      </div>
+    </form>
+
+    <form #loginForm="ngForm" (ngSubmit)="submit()" *ngIf="passwordActive">
+      <h2 class="head">Anmeldung</h2>
+      <h3 class="secondHead emailVis hover" (click)="back()">{{email}}</h3>
+
+      <br>
+
+      <span>Bestätigen Sie Ihre Identität, um fortzufahren</span>
+
+      <br>
+      <br>
+
+      <div class="input-outer">
+        <input type="password" name="password" id="password" placeholder="" [(ngModel)]="password" required minlength="8">
+        <label>Passwort eingeben</label>
+      </div>
+
+      <div class="pwdVisible hover" (click)="checkedToggle()">
+        <input type="checkbox" name="pwdVisible" id="pwdVisible" [checked]="checked">
+        <span>Passwort anzeigen</span>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <div class="buttons">
+        <button type="button" class="blue newAccount hover bold">Passwort vergessen?</button>
+        <button type="submit" class="next hover bold" (click)="submit()" [disabled]="loginForm.invalid">Weiter</button>
+      </div>
+    </form>
+
+    <select class="language">
+      <option value="german">Deutsch</option>
+      <option value="english">Englisch</option>
+    </select>
+  </div>
+</div>
