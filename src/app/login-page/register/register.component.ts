@@ -61,4 +61,18 @@ export class RegisterComponent {
   toggle() {
     this.loginPageService.loginActive = true;
   }
+
+  passwordActive: boolean = false;
+  checked: boolean = false;
+  next() {
+    this.passwordActive = true;
+  }
+
+  back() {
+    this.passwordActive = false;
+  }
+
+  checkedToggle() {
+    this.checked = !this.checked
+  }
 }

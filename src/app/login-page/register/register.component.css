@@ -1,9 +1,138 @@
-form {
-  display: flex;
-  flex-direction: column;
+* {
+  font-family: Calibri, serif;
 }
 
-form input, button {
-  margin: 5px;
+.outer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+form {
+  width: 400px;
+  height: 480px;
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  padding: 40px;
+}
+
+form .blue {
+  color: rgb(26,115,232);
+}
+
+form .newAccount {
+  background: none;
+  border: none;
+}
+
+form .head, form .secondHead {
+  text-align: center;
+  font-weight: normal;
+}
+
+form .head {
+  margin-top: 30px;
+  margin-bottom: 8px;
+}
+
+form .secondHead {
+  margin-top: 5px;
+  margin-bottom: 30px;
+}
+
+.input-outer {
+  position: relative;
+  width: 100%;
+}
+
+.input-outer label {
+  pointer-events: none;
+  font-size: 18px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding-top: 15px;
+  padding-left: 15px;
+  transition: 0.2s;
+  opacity: 0.5;
+  background: #fff;
+}
+
+.input-outer input {
+  width: 100%;
+  height: 50px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding-left: 15px;
+  font-size: 18px;
+}
+
+.input-outer input:focus + label, input:not(:placeholder-shown) + label {
+  opacity: 1;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: rgb(26,115,232);
+  transform: scale(0.75) translateY(-90%) translateX(-20px);
+}
+
+.forgotten {
+  margin-top: 5px;
+}
+
+.hover {
+  cursor: pointer;
+}
+
+.more {
+  margin-left: 5px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.newAccount {
+  font-size: 16px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.next {
+  background-color: rgb(26,115,232);
+  color: white;
+  width: 85px;
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+}
+
+.language {
+  background: none;
+  border: none;
+  height: 50px;
   width: 150px;
+  font-size: 14px;
+}
+
+.pwdVisible {
+  margin-top: 8px;
+  font-size: 18px;
+}
+
+#pwdVisible {
+  margin-right: 10px;
+}
+
+.emailVis {
+  border: 1px solid lightgray;
+  padding: 6px;
+  font-size: 15px;
+  border-radius: 20px;
+  width: 150px;
+  margin: 0 auto;
 }

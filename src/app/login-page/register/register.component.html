@@ -1,10 +1,86 @@
-<form #registerForm="ngForm" (ngSubmit)="submit()">
-  <input type="text" name="userName" id="userName" placeholder="userName" [(ngModel)]="userName" required minlength="2" pattern="^[a-zA-Z0-9._]+$">
-  <input type="email" name="email" id="email" placeholder="email" [(ngModel)]="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}">
-  <input type="password" name="password" id="password" placeholder="password" [(ngModel)]="password" required minlength="8">
-  <input type="password" name="password2" id="password2" placeholder="password2" [(ngModel)]="password2" required minlength="8">
+<div>
+  <div class="outer">
+    <form #registerForm="ngForm" (ngSubmit)="next()" *ngIf="!passwordActive">
+      <h2 class="head">Willkommen</h2>
+      <h3 class="secondHead">Zur Hauptseite weiterleiten</h3>
 
-  <button type="submit" [disabled]="registerForm.invalid">register</button>
-</form>
+      <br>
 
-<button (click)="toggle()">toggle</button>
+      <div class="input-outer">
+        <input type="text" name="userName" id="userName" placeholder="" [(ngModel)]="userName" required minlength="2" pattern="^[a-zA-Z0-9._]+$">
+        <label>Benutzername</label>
+      </div>
+
+      <br>
+      <br>
+
+      <div class="input-outer">
+        <input class="email" type="email" name="email" id="email" placeholder="" [(ngModel)]="email" required
+               pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}">
+        <label>E-Mail oder Telefonnummer</label>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <div>
+        <span>Nicht ihr Computer? Dann können Sie für die Registrierung ein privates Fenster öffnen.</span>
+        <span class="blue hover more bold">Weitere Informationen</span>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <div class="buttons">
+        <button type="button" class="blue newAccount hover bold" (click)="toggle()">Anmelden</button>
+        <button type="submit" class="next hover bold" (click)="next()" [disabled]="registerForm.invalid">Weiter</button>
+      </div>
+    </form>
+
+    <form #registerForm="ngForm" (ngSubmit)="submit()" *ngIf="passwordActive">
+      <h2 class="head">Registrierung</h2>
+      <h3 class="secondHead emailVis hover" (click)="back()">{{email}}</h3>
+
+      <br>
+
+      <span>Legen Sie ein Passwort fest, um fortzufahren</span>
+
+      <br>
+      <br>
+
+      <div class="input-outer">
+        <input type="password" name="password" id="password" placeholder="" [(ngModel)]="password" required minlength="8">
+        <label>Passwort eingeben</label>
+      </div>
+
+      <br>
+      <br>
+
+      <div class="input-outer">
+        <input type="password" name="password2" id="password2" placeholder="" [(ngModel)]="password2" required minlength="8">
+        <label>Passwort erneut eingeben</label>
+      </div>
+
+      <div class="pwdVisible hover" (click)="checkedToggle()">
+        <input type="checkbox" name="pwdVisible" id="pwdVisible" [checked]="checked">
+        <span>Passwort anzeigen</span>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <div class="buttons">
+        <button type="button" class="blue newAccount hover bold">Passwort vergessen?</button>
+        <button type="submit" class="next hover bold" (click)="submit()" [disabled]="registerForm.invalid">Weiter</button>
+      </div>
+    </form>
+
+    <select class="language">
+      <option value="german">Deutsch</option>
+      <option value="english">Englisch</option>
+    </select>
+  </div>
+</div>
